@@ -1,0 +1,90 @@
+
+
+
+*** Solving C:\Users\mplattner\Nextcloud\Documents\Uni\Master\MA\Sim\JCM\pyWGM - publish\project.jcmp on refinement level 0 ... 
+  *** A priori interior domain wave propagation characteristics (vacuum wavelength = 918.962 nm):
+  
+       Compartment "X":
+    computational domain size:  7.4 (wavelengths).
+    computational domain range wave propagation error: 0.0044
+    'one wavelength' wave propagation error: 0.0015 
+  
+       Compartment "Y":
+    computational domain size:  8.7 (wavelengths).
+    computational domain range wave propagation error: 0.0022
+    'one wavelength' wave propagation error: 0.00074 
+  
+       Compartment "-Y":
+    computational domain size:   31 (wavelengths).
+    computational domain range wave propagation error: 0.48
+    'one wavelength' wave propagation error: 0.03 
+
+Cell percentage per Finite Element degree
+  FEM degree  Cell percentage
+-----------------------------------------
+           3            100.0
+
+assembling problem (369440 unknowns) ...  
+assembling problem done: 00:00:05.18 (cpu), 00:00:05.18 (total)
+
+solving discrete problem ...  
+solving discrete problem done: 00:00:11.13 (cpu), 00:00:11.13 (total), 1.58GB (mem) [#iterations 1, decomposition: 00:00:03.29 (cpu), 00:00:03.29 (total)]
+  *** A posteriori exterior domain quality check:
+       Compartment  "X": 6.1e-05 (thickness level=0)
+       Compartment  "Y":   16 (thickness level=0)
+       Compartment "-Y":  6.4 (thickness level=0)
+  *** A priori interior domain wave propagation characteristics (vacuum wavelength = 918.962 nm):
+  
+       Compartment "X":
+    computational domain size:  7.4 (wavelengths).
+    computational domain range wave propagation error: 0.0044
+    'one wavelength' wave propagation error: 0.0015 
+  
+       Compartment "Y":
+    computational domain size:  8.7 (wavelengths).
+    computational domain range wave propagation error: 0.0022
+    'one wavelength' wave propagation error: 0.00074 
+  
+       Compartment "-Y":
+    computational domain size:   31 (wavelengths).
+    computational domain range wave propagation error: 0.48
+    'one wavelength' wave propagation error: 0.03 
+
+Cell percentage per Finite Element degree
+  FEM degree  Cell percentage
+-----------------------------------------
+           3            100.0
+
+assembling problem (371585 unknowns) ...  
+assembling problem done: 00:00:04.99 (cpu), 00:00:04.99 (total)
+
+solving discrete problem ...  
+solving discrete problem done: 00:00:14.63 (cpu), 00:00:14.63 (total), 1.63GB (mem) [#iterations 2, decomposition: 00:00:03.42 (cpu), 00:00:03.42 (total)]
+  *** A posteriori exterior domain quality check:
+       Compartment  "X": 5.4e-09 (thickness level=0)
+       Compartment  "Y": 0.0016 (thickness level=1)
+       Compartment "-Y": 0.00024 (thickness level=1)
+
+                                computational costs
+  level  unknowns     cpu time  cpu/unknowns  system memory   total time  total memory
+--------------------------------------------------------------------------------------
+      0    371585  00:00:37.75      1.02e-04         1.63GB  00:00:37.75        2.79GB
+
+                    1. eigenmode
+  level                         eigenmode  delta  ratio
+-------------------------------------------------------
+      0  2.04078426e+15 - 0.00013157e+15i    -/-    -/-
+
+                    2. eigenmode
+  level                         eigenmode  delta  ratio
+-------------------------------------------------------
+      0  2.05011108e+15 - 0.00012554e+15i    -/-    -/-
+
+
+*** Maximum number of refinement steps reached. *** 
+
+post process DensityIntegration (output file: 'density.jcm') ... done: 00:00:01.11 (cpu), 00:00:01.11 (total)
+post process Cartesian (output file: 'fields_XY.jcm') ... done: 00:00:00.95 (cpu), 00:00:00.95 (total)
+post process Cartesian (output file: 'fields_XZ.jcm') ... done: 00:00:02.87 (cpu), 00:00:02.87 (total)
+post process DensityIntegration (output file: 'electric_energy.jcm') ... done: 00:00:01.09 (cpu), 00:00:01.09 (total)
+post process Cartesian (output file: 'electric_energy_density.jcm') ... done: 00:00:02.71 (cpu), 00:00:02.71 (total)

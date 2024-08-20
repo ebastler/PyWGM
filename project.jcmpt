@@ -1,0 +1,79 @@
+Project {
+  InfoLevel = 2
+  StorageFormat = Binary
+  Electromagnetics {
+    TimeHarmonic {
+      ResonanceMode {
+        BlochVector = [1 1 %(Nphi)d]
+        FieldComponents = ElectricRYPhi
+
+        Accuracy {
+          FiniteElementDegree = %(FEMD)d
+          Precision = %(simPrec)e
+        }
+        SelectionCriterion {
+          NearGuess {
+            Guess = %(guess)e
+            NumberEigenvalues = %(modeNumber)d
+          }
+        }
+      }
+    }
+  }
+}
+
+PostProcess {
+  DensityIntegration {
+    FieldBagPath = "project_results/fieldbag.jcm"
+    OutputFileName = "project_results/density.jcm"
+    DomainIds = [9 7 6 5 4 3 2 1]
+    OutputQuantity = ElectricFieldEnergy
+  }
+}
+
+PostProcess {
+  ExportFields {
+    FieldBagPath = "project_results/fieldbag.jcm"
+    OutputFileName = "project_results/fields_XY.jcm"
+    OutputQuantity = ElectricFieldStrength
+    Cartesian {
+      NGridPointsX = %(fieldRes)d
+      NGridPointsY = %(fieldRes)d
+      GridPointsZ = 0
+    }
+  }
+}
+
+PostProcess {
+  ExportFields {
+    FieldBagPath = "project_results/fieldbag.jcm"
+    OutputFileName = "project_results/fields_XZ.jcm"
+    OutputQuantity = ElectricFieldStrength
+    Cartesian {
+      NGridPointsX = %(fieldRes)d
+      NGridPointsZ = %(fieldRes)d
+      GridPointsY = 0
+    }
+  }
+}
+
+PostProcess {
+	DensityIntegration {
+		FieldBagPath = "./project_results/fieldbag.jcm"
+		OutputFileName = "./project_results/electric_energy.jcm"
+		OutputQuantity = ElectricFieldEnergy
+  }
+}
+
+PostProcess {
+	ExportFields {
+		FieldBagPath = "./project_results/fieldbag.jcm"
+		OutputFileName = "./project_results/electric_energy_density.jcm"
+		OutputQuantity = ElectricFieldEnergyDensity
+	  Cartesian {
+		  NGridPointsX = 200000
+		  GridPointsY = [0]
+		  GridPointsZ = [1e-9]
+	  }
+  }
+}

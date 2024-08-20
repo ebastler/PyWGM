@@ -1,0 +1,21 @@
+/* <BLOBHead>
+__BLOBTYPE__=Table
+__MODE__=TEXT
+__OPTIONS__=LHExchanged
+__OWNER__=JCMwave
+__TAG__=a464e7fb2e3508f796a18eb0c4ee7dc4
+__VERSION__=1.0.0
+Column1:Name=eigenmode
+Column1:Type=doublecomplex
+Column2:Name=Precision
+Column2:Type=double
+Title=Eigenvalues
+<I>NColumns=2
+<I>NRows=2
+*/
+# Row 1
+(2.040784256581686e+15,-1.315735415150533e+11)
+5.000000000000000e-06
+# Row 2
+(2.050111077262038e+15,-1.255391962486221e+11)
+5.000000000000000e-06

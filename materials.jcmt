@@ -1,0 +1,84 @@
+Material {  
+  Name = "apertureOxide" 
+  DomainId = 12
+  RelPermittivity = %(permApertureOx)e
+  RelPermeability = 1.0
+}
+
+Material {  
+  Name = "apertureLayer" 
+  DomainId = 11
+  RelPermittivity = %(permApertureNonOx)e
+  RelPermeability = 1.0
+}
+
+Material {
+  Name = "WettingLayer"
+  DomainId = 10
+  RelPermittivity = 25+0.0008i
+  RelPermeability = 1.0
+}
+
+Material {  
+  Name = "AbsWall" 
+  DomainId = 9
+  RelPermittivity = %(permAbsWallIm)s
+  RelPermeability = 1.0
+}
+
+Material {  
+  Name = "Cap" 
+  DomainId = 8
+  RelPermittivity = %(permCap)e
+  RelPermeability = 1.0
+}
+
+Material {  
+  Name = "Cavity" 
+  DomainId = 7
+  RelPermittivity = %(permCavity)s
+  RelPermeability = 1.0
+}
+
+Material {  
+  Name = "Substrate" 
+  DomainId = 6
+  RelPermittivity = %(permSubstrate)e
+  RelPermeability = 1.0
+}
+
+Material {  
+  Name = "permBotDBR1" 
+  DomainId = 5
+  RelPermittivity = %(permBotDBR1)e
+  RelPermeability = 1.0
+}
+
+Material {  
+  Name = "permBotDBR2" 
+  DomainId = 4
+  RelPermittivity = %(permBotDBR2)e
+  RelPermeability = 1.0
+}
+
+Material {  
+  Name = "permTopDBR1" 
+  DomainId = 3
+  RelPermittivity = %(permTopDBR1)e
+  RelPermeability = 1.0
+}
+
+Material {  
+  Name = "permTopDBR2" 
+  DomainId = 2
+  RelPermittivity = %(permTopDBR2)e
+  RelPermeability = 1.0
+}
+
+Material {  
+  Name = "Air" 
+  DomainId = 1
+  RelPermittivity = 1.0
+  RelPermeability = 1.0
+}
+

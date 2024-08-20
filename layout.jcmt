@@ -1,0 +1,226 @@
+Layout2D {
+  UnitOfLength = 1e-9
+  CoordinateSystem = Cylindrical
+  
+  MeshOptions {
+    MaximumSideLength = 150
+  }
+  Objects {
+    
+    # Cavity is placed in the center of the structure
+    Parallelogram {
+      Name = "Cavity"
+      Width = %(pillarR)e
+      Height = %(cavityHeight)e
+      DomainId = 7
+      Priority=2
+      Port = West
+      Boundary {
+        Class = Transparent
+      }
+    }
+
+    # Upper DBR
+    MultiLayer {
+      Name = "topDBR"
+      Width = %(pillarR)e
+      InnerAngles = [90 90]
+      Priority=2
+
+      # Single topDBR1 layer
+      Layer {
+        DomainId = 3
+        Height = %(topDBR1Height)e
+      }
+      
+      # n topDBR2 / topDBR1 layers
+      SubLayers {
+        Layer {
+          DomainId = 2
+          Height = %(topDBR2Height)e
+        }
+        Layer {
+          DomainId = 3
+          Height = %(topDBR1Height)e
+        }
+        Multiplicity = %(topDBRpairs)e
+      }
+
+      # Single GaAs capping layer
+      Layer {
+        DomainId = 8
+        Height = %(capHeight)e
+      }
+
+      # Align south port of top DBR with north port of cavity
+      Port = South
+      Alignment {
+        Parent {
+          Domain = "Cavity"
+          Port = North
+        }
+      Orientation = AntiParallel
+      }
+    }
+
+    # Lower DBR
+    MultiLayer {
+      Name = "botDBR"
+      Width = %(pillarR)e
+      InnerAngles = [90 90]
+      Priority=3
+
+      # Single botDBR1 layer
+      Layer {
+        DomainId = 5
+        Height = %(botDBR1Height)e
+      }
+      
+      # n botDBR2 / botDBR1 layers
+      SubLayers {
+        Layer {
+          DomainId = 4
+          Height = %(botDBR2Height)e
+        }
+        Layer {
+          DomainId = 5
+          Height = %(botDBR1Height)e
+        }
+        Multiplicity = %(botDBRpairs)e
+      }
+
+      # Align north port of bot DBR with south port of cavity
+      Port = North
+      Alignment {
+        Parent {
+          Domain = "Cavity"
+          Port = South
+        }
+      Orientation = AntiParallel
+      }
+    }
+
+    # Unetched part of lower DBR
+    MultiLayer {
+      Name = "unetchedBotDBR"
+      Width = %(substrateR)e
+      InnerAngles = [90 90]
+      Priority=2
+
+      # Single botDBR1 layer
+      Layer {
+        DomainId = 5
+        Height = %(botDBR1Height)e
+      }
+      
+      # n botDBR2 / botDBR1 layers
+      SubLayers {
+        Layer {
+          DomainId = 4
+          Height = %(botDBR2Height)e
+        }
+        Layer {
+          DomainId = 5
+          Height = %(botDBR1Height)e
+        }
+        Multiplicity = %(unEtchedBotDBRpairs)e
+      }
+
+      # Align south port of unetched bot DBR with south port of regular bot DBR
+      Port = Point1
+      Alignment {
+        Parent {
+          Domain = "botDBR"
+          Port = Point1
+        }
+      Orientation = Parallel
+      }
+    }
+    # Non oxidized aperture layer
+    Parallelogram {
+      Name = "apertureLayerNonOx"
+      Width = %(apertureRadius)e
+      Height = %(apertureThickness)e
+      DomainId = 11
+      Priority = %(apertureEnableNonOx)d
+      Port = West
+      GlobalPosition = [0 %(aperturePosition)e]
+      Boundary {
+        Class = Transparent
+      }
+    }
+    # Oxidized aperture layer
+    Parallelogram {
+      Name = "apertureLayerOx"
+      Width = %(pillarR)e
+      Height = %(apertureThickness)e
+      DomainId = 12
+      Priority = %(apertureEnableOx)d
+      Port = West
+      GlobalPosition = [0 %(aperturePosition)e]
+      Boundary {
+        Class = Transparent
+      }
+    }
+
+    # Absorbing layer around pillar
+    Parallelogram {
+      Name = "AbsLayer"
+      Width = %(absWallW)e
+      Height = %(absWallH)e
+      DomainId = 9
+      Priority=2
+      Boundary {
+        Class = Transparent
+      }
+      Port = Point4
+      Alignment {
+        Parent {
+          Domain = "topDBR"
+          Port = Point3
+        }
+        Orientation = Parallel
+      }
+    }
+
+    # Substrate
+    Parallelogram {
+      Name = "Substrate"
+      Width = %(substrateR)e
+      Height = %(substrateH)e
+      DomainId = 6
+      Priority=2
+      Boundary {
+        Class = Transparent
+      }
+      Port = Point4
+      Alignment {
+        Parent {
+          Domain = "botDBR"
+          Port = Point1
+        }
+        Orientation = Parallel
+      }
+    }
+
+    # Air
+    Parallelogram {
+      Name = "Air"
+      Width = %(substrateR)e
+      Height = %(airHeight)e
+      DomainId = 1
+      Priority = -1
+      Boundary {
+        Class = Transparent
+      }
+      Port = Point1
+      Alignment {
+        Parent {
+          Domain = "Substrate"
+          Port = Point1
+        }
+        Orientation = Parallel
+      }
+    }
+  }
+}
