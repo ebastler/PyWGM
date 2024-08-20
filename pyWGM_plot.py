@@ -159,6 +159,7 @@ def plotresults(resPath, plotPath, simType, FSRtype, singlePointWavelength):
         tempvarPrevY = -1
         tempvarPrevR = -1
         for i in range(0, len(results)-1):
+            print()
             if results['Polarisation'][i] == 'Y':
                 if tempvarPrevY >= 0:
                     if plotX[i] == plotX[tempvarPrevY]:
@@ -333,7 +334,7 @@ def plotresults(resPath, plotPath, simType, FSRtype, singlePointWavelength):
             
     plotTitle = ('FSR and Q-factor for dia = %d nm to dia = %d nm'  %(min(results['Radius_nm'])*2, max(results['Radius_nm'])*2))
 
-    plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotX_R, WL_R, qFactor_R, modeVolume_R, purcellF_R, betaF_R, distToWall_R, plotX_Y, WL_Y, qFactor_Y, modeVolume_Y, purcellF_Y, betaF_Y, distToWall_Y, FSR_Y_d, FSR_Y_nm, FSR_Y_meV, FSR_R_d, FSR_R_nm, FSR_R_meV, energyRatio_Y, energyRatio_R, plotX_Y_mean, betaF_Y_mean, [n*sigma for n in betaF_Y_stdev] , distToWall_Y_mean, [n*sigma for n in distToWall_Y_stdev], modeVolume_Y_mean, [n*sigma for n in modeVolume_Y_stdev], purcellF_Y_mean, [n*sigma for n in purcellF_Y_stdev], qFactor_Y_mean, [n*sigma for n in qFactor_Y_stdev], energyRatio_Y_mean, [n*sigma for n in energyRatio_Y_stdev], plotX_R_mean, betaF_R_mean, [n*sigma for n in betaF_R_stdev], distToWall_R_mean, [n*sigma for n in distToWall_R_stdev], modeVolume_R_mean, [n*sigma for n in modeVolume_R_stdev], purcellF_R_mean, [n*sigma for n in purcellF_R_stdev], qFactor_R_mean, [n*sigma for n in qFactor_R_stdev], energyRatio_R_mean, [n*sigma for n in energyRatio_R_stdev], plotsize_f, plotsize_s)
+    plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotX_R, WL_R, qFactor_R, modeVolume_R, purcellF_R, betaF_R, distToWall_R, plotX_Y, WL_Y, qFactor_Y, modeVolume_Y, purcellF_Y, betaF_Y, distToWall_Y, FSRtype, singlePointWavelength, FSR_Y_d, FSR_Y_nm, FSR_Y_meV, FSR_R_d, FSR_R_nm, FSR_R_meV, energyRatio_Y, energyRatio_R, plotX_Y_mean, betaF_Y_mean, [n*sigma for n in betaF_Y_stdev] , distToWall_Y_mean, [n*sigma for n in distToWall_Y_stdev], modeVolume_Y_mean, [n*sigma for n in modeVolume_Y_stdev], purcellF_Y_mean, [n*sigma for n in purcellF_Y_stdev], qFactor_Y_mean, [n*sigma for n in qFactor_Y_stdev], energyRatio_Y_mean, [n*sigma for n in energyRatio_Y_stdev], plotX_R_mean, betaF_R_mean, [n*sigma for n in betaF_R_stdev], distToWall_R_mean, [n*sigma for n in distToWall_R_stdev], modeVolume_R_mean, [n*sigma for n in modeVolume_R_stdev], purcellF_R_mean, [n*sigma for n in purcellF_R_stdev], qFactor_R_mean, [n*sigma for n in qFactor_R_stdev], energyRatio_R_mean, [n*sigma for n in energyRatio_R_stdev], plotsize_f, plotsize_s)
 
 def plotfields(plotTitle, plotPath, posX, posY, posZ, intensityXZ_dir, intensityXY, intensityXZ, botDBR1Height, botDBR2Height, cavityHeight, topDBR1Height, topDBR2Height, capHeight, topDBRpairs, botDBRpairs, unEtchedBotDBRpairs, pillarRadius, substrateRadius, apertureRadius, aperturePosition, apertureEnable, apertureThickness):
     plt.rc('font', family='serif', size=14)
@@ -391,7 +392,7 @@ def plotfields(plotTitle, plotPath, posX, posY, posZ, intensityXZ_dir, intensity
     plt.savefig(plotPath, dpi=200)
     plt.close('all')
 
-def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotXZ_WL, plotXZ_q, plotXZ_mv, plotXZ_pf, plotXZ_bf, plotXZ_dist, plotY_X, plotY_WL, plotY_q, plotY_mv, plotY_pf, plotY_bf, plotY_dist, FSR_Y_d, FSR_Y_nm, FSR_Y_meV, FSR_R_d, FSR_R_nm, FSR_R_meV, energyRatio_Y, energyRatio_R, plotX_Y_mean, betaF_Y_mean, betaF_Y_stdev, distToWall_Y_mean, distToWall_Y_stdev, modeVolume_Y_mean, modeVolume_Y_stdev, purcellF_Y_mean, purcellF_Y_stdev, qFactor_Y_mean, qFactor_Y_stdev, energyRatio_Y_mean, energyRatio_Y_stdev, plotX_R_mean, betaF_R_mean, betaF_R_stdev, distToWall_R_mean, distToWall_R_stdev, modeVolume_R_mean, modeVolume_R_stdev, purcellF_R_mean, purcellF_R_stdev, qFactor_R_mean, qFactor_R_stdev, energyRatio_R_mean, energyRatio_R_stdev, plotsize_f, plotsize_s):
+def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotXZ_WL, plotXZ_q, plotXZ_mv, plotXZ_pf, plotXZ_bf, plotXZ_dist, plotY_X, plotY_WL, plotY_q, plotY_mv, plotY_pf, plotY_bf, plotY_dist, FSRtype, singlePointWavelength, FSR_Y_d, FSR_Y_nm, FSR_Y_meV, FSR_R_d, FSR_R_nm, FSR_R_meV, energyRatio_Y, energyRatio_R, plotX_Y_mean, betaF_Y_mean, betaF_Y_stdev, distToWall_Y_mean, distToWall_Y_stdev, modeVolume_Y_mean, modeVolume_Y_stdev, purcellF_Y_mean, purcellF_Y_stdev, qFactor_Y_mean, qFactor_Y_stdev, energyRatio_Y_mean, energyRatio_Y_stdev, plotX_R_mean, betaF_R_mean, betaF_R_stdev, distToWall_R_mean, distToWall_R_stdev, modeVolume_R_mean, modeVolume_R_stdev, purcellF_R_mean, purcellF_R_stdev, qFactor_R_mean, qFactor_R_stdev, energyRatio_R_mean, energyRatio_R_stdev, plotsize_f, plotsize_s):
     #
     plt.rc('font', family='serif', size=14)
     matplotlib.rc('text', usetex=True)
@@ -412,7 +413,13 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     ax1.scatter(FSR_R_d, FSR_R_nm, s=plotMarkerSize, label = 'Radially polarized mode')
     #ax2.scatter(FSR_Y_d, FSR_Y_nm, s=0.5)
     #ax2.scatter(FSR_R_d, FSR_R_nm, s=0.5)
-    ax1.set(xlabel = plotXlab, ylabel = "Mean FSR in nm")
+    if FSRtype == 'singlePoint':
+        ax1.set(xlabel = plotXlab, ylabel = "FSR at {} nm in nm".format(singlePointWavelength))
+    if FSRtype == 'average':
+        ax1.set(xlabel = plotXlab, ylabel = "Mean FSR in nm")
+    if FSRtype == 'fullData':
+        ax1.set(xlabel = plotXlab, ylabel = "FSR in nm")
+    
     #ax2.set(ylabel = "Mean FSR in nm")
     plt.tight_layout()
     ax1.legend()
@@ -507,7 +514,13 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     ax1.scatter(FSR_R_d, FSR_R_nm, s=plotMarkerSize, label = 'Radially polarized mode')
     #ax2.scatter(FSR_Y_d, FSR_Y_nm, s=0.5)
     #ax2.scatter(FSR_R_d, FSR_R_nm, s=0.5)
-    ax1.set(xlabel = plotXlab, ylabel = 'Mean FSR in nm')
+    if FSRtype == 'singlePoint':
+        ax1.set(xlabel = plotXlab, ylabel = "FSR at {} nm in nm".format(singlePointWavelength))
+    if FSRtype == 'average':
+        ax1.set(xlabel = plotXlab, ylabel = "Mean FSR in nm")
+    if FSRtype == 'fullData':
+        ax1.set(xlabel = plotXlab, ylabel = "FSR in nm")
+
     #ax2.set(ylabel = 'Mean FSR in nm')
     plt.tight_layout()
     ax1.legend()
