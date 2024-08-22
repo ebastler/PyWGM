@@ -70,13 +70,13 @@ def plotresults(resPath, plotPath, simType, FSRtype, singlePointWavelength):
     energyRatio_R_stdev=[]
 
     if simType == 'dia':
-        plotX = results['Radius_nm']*2
+        plotX = (results['Radius_nm']*2)/1000
         simParameter = 'diameter'
-        plotXlab = "Pillar diameter in nm"
+        plotXlab = r'Pillar diameter in $\mu$m'
     if simType == 'topdbr':
         plotX = results['Top_DBR_pairs']
         simParameter = 'top DBR pairs'
-        plotXlab = "Top DBR pairs"
+        plotXlab = "Top DBR mirror pairs"
     if simType == 'refindexcavity':
         plotX = results['Refindex_Cavity']
         simParameter = 'refractive index of cavity'
@@ -84,11 +84,11 @@ def plotresults(resPath, plotPath, simType, FSRtype, singlePointWavelength):
     if simType == 'aperture':
         plotX = results['Oxide_width_nm']
         simParameter = 'oxide width'
-        plotXlab = "Aperture oxide width in nm"
+        plotXlab = "Oxide aperture width in nm"
     if simType == 'dbretch':
         plotX = results['unetched_DBR_pairs']
         simParameter = 'unetched DBR pairs'
-        plotXlab = "Unetched bottom DBR pairs"
+        plotXlab = "Unetched bottom DBR mirror pairs"
 
 
     for i in range(0, len(results)):
@@ -97,7 +97,7 @@ def plotresults(resPath, plotPath, simType, FSRtype, singlePointWavelength):
             WL_Y.append(results['Wavelength_nm'][i])
             plotX_Y.append(plotX[i])
             qFactor_Y.append(results['QFactor'][i])
-            modeVolume_Y.append(results['Mode_Volume_nm3'][i])
+            modeVolume_Y.append(results['Mode_Volume_nm3'][i]*1e-9)
             purcellF_Y.append(results['Purcell_Factor'][i])
             betaF_Y.append(results['Beta_Factor'][i])
             distToWall_Y.append(results['Distance_wall_to_mode_max_nm'][i])
@@ -107,7 +107,7 @@ def plotresults(resPath, plotPath, simType, FSRtype, singlePointWavelength):
             WL_R.append(results['Wavelength_nm'][i])
             plotX_R.append(plotX[i])
             qFactor_R.append(results['QFactor'][i])
-            modeVolume_R.append(results['Mode_Volume_nm3'][i])
+            modeVolume_R.append(results['Mode_Volume_nm3'][i]*1e-9)
             purcellF_R.append(results['Purcell_Factor'][i])
             betaF_R.append(results['Beta_Factor'][i])
             distToWall_R.append(results['Distance_wall_to_mode_max_nm'][i])
@@ -240,7 +240,7 @@ def plotresults(resPath, plotPath, simType, FSRtype, singlePointWavelength):
         write.writerow(("Mode 1", "Mode 2", "FSR_Y_d", "FSR_Y_meV", "FSR_Y_nm"))
         write.writerows(export_data)
 
-    # Calculate mean of beta factor etc for all simulated modes per wavelength (i.e. average/stdev for all vertically polarized modes in 1000nm pillar, etc)
+    # Calculate mean of beta-factor etc for all simulated modes per wavelength (i.e. average/stdev for all vertically polarized modes in 1000nm pillar, etc)
     tempArrayY = []
     tempArrayR = []
     # Loop over all values for vertical polarization (Y)
@@ -428,10 +428,10 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     #
     # Plot means
     fig, ax1 = plt.subplots(1,1, figsize=plotsize_f)
-    #plt.suptitle('Mean Beta factor over {}'.format(simParameter))
+    #plt.suptitle('Mean beta-factor over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, betaF_Y_mean, yerr=betaF_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, betaF_R_mean, yerr=betaF_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = "Beta Factor")
+    ax1.set(xlabel = plotXlab, ylabel = r'$\beta$-factor')
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_f_mean_Beta.pdf'.format(plotPath))
@@ -451,7 +451,7 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     #plt.suptitle('Mode volume over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, modeVolume_Y_mean, yerr=modeVolume_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, modeVolume_R_mean, yerr=modeVolume_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = "Mode Volume in nm³")
+    ax1.set(xlabel = plotXlab, ylabel = r'Mode Volume in $\mu$m³')
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_f_mean_MV.pdf'.format(plotPath))
@@ -461,7 +461,7 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     #plt.suptitle('Purcell factor over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, purcellF_Y_mean, yerr=purcellF_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, purcellF_R_mean, yerr=purcellF_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = "Purcell Factor")
+    ax1.set(xlabel = plotXlab, ylabel = "Purcell factor")
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_f_mean_Purcell.pdf'.format(plotPath))
@@ -471,17 +471,17 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     #plt.suptitle('Purcell factor over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, purcellF_Y_mean, yerr=purcellF_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, purcellF_R_mean, yerr=purcellF_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = "Purcell Factor")
+    ax1.set(xlabel = plotXlab, ylabel = "Purcell factor")
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_f_mean_Purcell.pdf'.format(plotPath))
     plt.close()
 
     fig, ax1 = plt.subplots(1,1, figsize=plotsize_f)
-    #plt.suptitle('Q factor over {}'.format(simParameter))
+    #plt.suptitle('Q-factor over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, qFactor_Y_mean, yerr=qFactor_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, qFactor_R_mean, yerr=qFactor_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = "Q Factor")
+    ax1.set(xlabel = plotXlab, ylabel = "Q-factor")
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_f_mean_Q.pdf'.format(plotPath))
@@ -491,7 +491,7 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     #plt.suptitle('Mode energy inside/outside structure over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, energyRatio_Y_mean, yerr=energyRatio_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, energyRatio_R_mean, yerr=energyRatio_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = "% of mode energy inside structure")
+    ax1.set(xlabel = plotXlab, ylabel = r'\% of mode energy inside structure')
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_f_mean_Ratio.pdf'.format(plotPath))
@@ -529,10 +529,10 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     #
     # Plot means
     fig, ax1 = plt.subplots(1,1, figsize=plotsize_s)
-    #plt.suptitle('Mean Beta factor over {}'.format(simParameter))
+    #plt.suptitle('Mean beta-factor over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, betaF_Y_mean, yerr=betaF_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, betaF_R_mean, yerr=betaF_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = 'Beta Factor')
+    ax1.set(xlabel = plotXlab, ylabel = r'$\beta$-factor')
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_s_mean_Beta.pdf'.format(plotPath))
@@ -552,7 +552,7 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     #plt.suptitle('Mode volume over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, modeVolume_Y_mean, yerr=modeVolume_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, modeVolume_R_mean, yerr=modeVolume_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = 'Mode Volume in nm³')
+    ax1.set(xlabel = plotXlab, ylabel = r'Mode Volume in $\mu$m³')
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_s_mean_MV.pdf'.format(plotPath))
@@ -562,7 +562,7 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     #plt.suptitle('Purcell factor over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, purcellF_Y_mean, yerr=purcellF_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, purcellF_R_mean, yerr=purcellF_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = 'Purcell Factor')
+    ax1.set(xlabel = plotXlab, ylabel = 'Purcell factor')
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_s_mean_Purcell.pdf'.format(plotPath))
@@ -572,17 +572,17 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     #plt.suptitle('Purcell factor over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, purcellF_Y_mean, yerr=purcellF_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, purcellF_R_mean, yerr=purcellF_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = 'Purcell Factor')
+    ax1.set(xlabel = plotXlab, ylabel = 'Purcell factor')
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_s_mean_Purcell.pdf'.format(plotPath))
     plt.close()
 
     fig, ax1 = plt.subplots(1,1, figsize=plotsize_s)
-    #plt.suptitle('Q factor over {}'.format(simParameter))
+    #plt.suptitle('Q-factor over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, qFactor_Y_mean, yerr=qFactor_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, qFactor_R_mean, yerr=qFactor_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = 'Q Factor')
+    ax1.set(xlabel = plotXlab, ylabel = 'Q-factor')
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_s_mean_Q.pdf'.format(plotPath))
@@ -592,7 +592,7 @@ def plotgraphsingle(simParameter, plotTitle, plotPath, plotXlab, plotXZ_X, plotX
     #plt.suptitle('Mode energy inside/outside structure over {}'.format(simParameter))
     ax1.errorbar(plotX_Y_mean, energyRatio_Y_mean, yerr=energyRatio_Y_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Vertically polarized (${}\sigma$ intervals)'.format(sigma))
     ax1.errorbar(plotX_R_mean, energyRatio_R_mean, yerr=energyRatio_R_stdev, fmt='o', ms=plotMarkerSize/2, capsize=5, label = r'Radially polarized (${}\sigma$ intervals)'.format(sigma))
-    ax1.set(xlabel = plotXlab, ylabel = '% of mode energy inside structure')
+    ax1.set(xlabel = plotXlab, ylabel = r'\% of mode energy inside structure')
     plt.tight_layout()
     ax1.legend()
     plt.savefig('{}/plot_s_mean_Ratio.pdf'.format(plotPath))
